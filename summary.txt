@@ -1,0 +1,28 @@
+1. Why did you choose the tools, libraries, and language you used for the coding exercise?
+talk about COMMONjs vs es6, 
+typescript
+express
+
+hashmap obviously for constant lookup and updating for Payers
+talk about using min-heap to optimize the algorithm
+give the complexity analysis
+why did i import moment
+
+why did I use interfaces over types or classes?
+
+2. What are the advantages and disadvantages of your solution?
+advantages: backwards compatbility, industry standard, big O performance
+
+complexotiy analysis
+space complexity
+
+coudl store each point individually as an object with its own timestamp
+insane memory constraints, definitely not doable
+O(nlogn) time complexity tho
+
+disadvantges: language performacne, node, 
+
+3. What has been a favorite school/personal project thus far? What about it that challenged you?
+networks, TCP implementation, 
+working with low-level languages C, debugging, shotting myself in the foot with malloc, being very careful
+understanding completely the workings of the language
