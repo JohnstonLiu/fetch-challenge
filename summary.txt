@@ -1,28 +1,57 @@
 1. Why did you choose the tools, libraries, and language you used for the coding exercise?
-typescript
-express
-node
+For this coding exercise I chose to use TypeScript with Express.js and Node.js. 
+I chose TypeScript over JavaScript because of its support for typing, allowing for better
+code readability, linting support, and general better developer practice for larger codebases (future scalability).
 
-hashmap obviously for constant lookup and updating for Payers
-talk about using min-heap to optimize the algorithm
-give the complexity analysis
-why did i import moment
+Node.js allows execute of JavaScript code on server-side, enabling us to build backend applications
+with JavaScript. Since JavaScript is the standard for frontend development, having a single language
+for both front and backend is a very intuitive choice that would simplify later full stack intergration (although this exercise has no frontend). 
 
-why did I use interfaces over types or classes?
+I chose Express.js because it is the industry standard for API development with Node.js, giving me
+numerous high-level functions to manage REST API routing and requests. As a result, there is an abundance
+of documentation and resources online to assist with development.
+
+I also used Moment.js and Heap.js to easily handle date-time types and give access to the heap data structure which isn't
+available in native JavaScript. Using a well-maintained and popular open source library is a good way to avoid reinventing
+the wheel and to minimize implementation complexity and possible points of failure for development.
+
+Finally, for testing my implementation I used Python with the pytest framework to test basic
+REST API functionality with expected status codes, json responses, and other logic. I chose pytest
+because of my past experience with pytest and Python. Python is especially readable and is a very flexible langauge
+especially for scripting purposes. Therefore, I found it suitable for powering the testing tools.
 
 2. What are the advantages and disadvantages of your solution?
-advantages: backwards compatbility, industry standard, big O performance
+Advantages:
+Our choice of language and framework, namely, TypeScript on Node.js with Express.js is a popular choice
+for open source projects as well as industry. Therefore, a vast amount of documentation and support is 
+avaialable online allowing for easy scalability in the future and extensive open source libraries
+to avoid reinventing the wheel for reasons as described above. 
 
-complexotiy analysis
-space complexity
+On the more technical side, using a heap data structure allows me to maintain the 
+transactions of a user in a sorted order (by timestamp). Thus, we save for computation time when we perform 
+"spend" operations. Furthermore, using a hashmap to store balances of payers allows us to read/update values
+in constant time. 
 
-coudl store each point individually as an object with its own timestamp
-insane memory constraints, definitely not doable
-O(nlogn) time complexity tho
+Disadvantages: 
+Security and error handling are not implemented into our backend. As such, if users don't follow the specifications
+precisely for their API requests, undefined behavior may occur without warning or signal. 
 
-disadvantges: language performacne, node, 
+On the technical side, using a heap to store our transactions does simplify our implementation and time complexity; however,
+its complexity improvements are overshadowed by our normalization function which in worst case runs in quadratic time. It is possible
+that there exists a better algorithm/solution to take care of negative add transactions for payers while ensuring proper
+chronological point priority. However, as of now our normalizing of transactions is the limiting factor on our spend requests.
+
+Finally, if given more time it might be fruitful to use Docker to dockerize this backend application. Since the size of this
+application is small and we have very few dependencies, I determined it to be unnecessary. However, it would remove the ever-prevalent issue
+of "it works on my machine" and would future-proof development and deployment.
 
 3. What has been a favorite school/personal project thus far? What about it that challenged you?
-networks, TCP implementation, 
-working with low-level languages C, debugging, shotting myself in the foot with malloc, being very careful
-understanding completely the workings of the language
+In my Computer Networks class, I implemented an IRC Chat Protocol, TCP, and a Router protocol in C using socket programming. 
+Working with a low-level language exposed me greatly to the fine details of networking and its interactions with the operating system.
+Working on the bit level with mallocing network payloads, using the pthreads library for multithreading and handling race conditions, and
+simply dealing with the implementation of TCP retransmissions/out-of-order deliveries allowed me to gain invaluable understanding of
+all of these computer network protocols. Working at such a fine microscopic detail also exposed myself to shoot myself in the foot
+countless times, but with each debugging session and failure, I would learn immeasurable amounts. Truly implementing the protocols
+that the Internet relies on instead of just reading about them gives you a unique sense of understanding as well as appreciation for
+Computer Science systems and technological advancement. I imagine I would receive a similar experience by attempting to implement a server-side
+run time implementation for JavaScript i.e. Node.js from scratch. 
