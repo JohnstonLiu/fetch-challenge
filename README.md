@@ -11,7 +11,7 @@ Backend REST API built with Typescript and Express.js based on Fetch Backend Int
 ## Setup and Run Server 
 1) Clone repo locally
     ```
-    git clone #LINK
+    git clone https://github.com/JohnstonLiu/fetch-challenge.git
     ```
 2) Go to the project's root directory
     ```

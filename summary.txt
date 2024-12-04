@@ -1,7 +1,7 @@
 1. Why did you choose the tools, libraries, and language you used for the coding exercise?
-talk about COMMONjs vs es6, 
 typescript
 express
+node
 
 hashmap obviously for constant lookup and updating for Payers
 talk about using min-heap to optimize the algorithm
