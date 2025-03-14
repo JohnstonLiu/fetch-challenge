@@ -14,15 +14,22 @@ var payers: Map<string, number> = new Map();
 const txnTimeComparator = (a: Txn, b: Txn) => a.timestamp - b.timestamp;
 var txnHist: Heap<Txn> = new Heap(txnTimeComparator);
 
+// Want to make sure not accepting timestamps in the future
 // POST /add
 router.post("/add", (req: Request, res: Response) => {
+  const newTimestamp: EpochTimeStamp = moment.utc(req.body.timestamp).unix();
+  if (newTimestamp > moment().utc().unix()) {
+    res.status(400).send('Add failed. Timestamp is in the future.');
+    return;
+  }
   var base: number = payers.get(req.body.payer) ?? 0;
   payers.set(req.body.payer, base + req.body.points);
   const newTxn: Txn = {
     payer: req.body.payer,
     points: req.body.points,
-    timestamp: moment.utc(req.body.timestamp).unix()
+    timestamp: newTimestamp
   };
+
   txnHist.push(newTxn);
   res.status(200).send();
 });
@@ -66,6 +73,7 @@ function spendResponseFormat(map: Map<string, number>): spendResponseElement[] {
   return response;
 }
 
+
 /**
  * Generates array of transactions from txnHist heap. Then normalizes the array
  * and returns it.
@@ -93,11 +101,25 @@ function getNormalizedTxns(): Txn[] {
       }
     }
   }
+  // [1,2,3,4,5]
+  // [0, 0, 1000]
+  //
   return txns;
 }
 
+// spend 1000 points
+// A 1000 yday 
+// A -800 yday
+// B 1000 now
+
+// A 200
+// A 0
+// B 1000
+
+
 // POST /spend
 router.post("/spend", (req: Request, res: Response) => {
+  console.log('spend request');
   var points: number = req.body.points;
   const heap: Heap<Txn> = new Heap(txnTimeComparator);
   heap.init(getNormalizedTxns());
@@ -121,6 +143,8 @@ router.post("/spend", (req: Request, res: Response) => {
   if (points == 0) {
     const resMap: Map<string, number> = compPayerDelta(payers, newPayers);
     res.status(200).json(spendResponseFormat(resMap));
+    // A: -800
+    // B: -200
     txnHist = heap;
     payers = newPayers;
     return;
